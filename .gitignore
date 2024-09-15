@@ -1,0 +1,5 @@
+# Ignore Depedency directory
+node_modules/
+
+# enviroment variabel
+.env
