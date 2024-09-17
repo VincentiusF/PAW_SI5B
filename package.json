@@ -1,9 +1,9 @@
 {
   "name": "p2",
   "version": "1.0.0",
-  "main": "./src/index1.js",
+  "main": "./src/index.js",
   "scripts": {
-    "start": "node ./src/index1.js",
+    "start": "node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
