@@ -24,4 +24,3 @@ app.use('*', (req,res) =>{
     res.send('404, Halaman tidak ditemukan');
 
 });
-
