@@ -5,7 +5,7 @@ const port =3000;
 const route = require('./routes/index');
 
 app.get('/', (req, res) => {
-    res.send('Halo dunia!');
+    res.send('Halo Mahasiswa!');
 });
 
 app.use(route);
