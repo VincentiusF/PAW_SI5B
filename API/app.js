@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bukuRouter =  require('./routes/bukus');
 
+const mongoose = require('mongoose');
+
 //CORS Enabled
 //Cross Origin Resource Sharing
 var app = express();
@@ -20,6 +22,15 @@ app.use((req, res, next) => {
 
   next();
 });
+
+mongoose.connect(
+  'mongodb+srv://mdp:Vf29122003@cluster0.eyoha.mongodb.net/dbbuku?retryWrites=true&w=majority&appName=Cluster0'
+).then(() => {
+  console.log('Connected to database');
+}).catch(() => {
+  console.log("Connection failed");
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
