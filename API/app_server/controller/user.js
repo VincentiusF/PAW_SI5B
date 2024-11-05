@@ -1,5 +1,6 @@
 const User = require("../model/user");
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 
 const signUp = (req, res) => {
     bcrypt.hash(req.body.password, 10)
@@ -14,7 +15,6 @@ const signUp = (req, res) => {
         .then((result) => {
             res.status(201).json({
                 message: "User Created"
-                // result: result
             });
         })
         .catch((err) => {
@@ -31,6 +31,7 @@ const login = (req, res) => {
     User.findOne({ email: req.body.email })
         .then((user) => {
             if (!user) {
+                // Send an immediate response if the user does not exist
                 return res.status(401).json({
                     message: "Auth failed, email does not exist"
                 });
@@ -39,16 +40,24 @@ const login = (req, res) => {
             fetchedUser = user;
             return bcrypt.compare(req.body.password, user.password);
         })
-        .then((result) => {
-            if (!result) {
+        .then((passwordMatch) => {
+            if (!passwordMatch) {
+                // Send an immediate response if the password is incorrect
                 return res.status(401).json({
                     message: "Auth failed, password incorrect"
                 });
             }
 
-            // Here, you can generate a token or respond with success
+            // Generate JWT if authentication is successful
+            const token = jwt.sign(
+                { email: fetchedUser.email, userid: fetchedUser._id },
+                "kuncisi5bpaw",
+                { expiresIn: "1h" }
+            );
+
             res.status(200).json({
                 message: "Auth successful",
+                token: token,
                 user: fetchedUser
             });
         })

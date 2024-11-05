@@ -4,11 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var bukuRouter =  require('./routes/bukus');
+var indexRouter = require('./app_server/routes/index');
+var usersRouter = require('./app_server/routes/users');
+var bukuRouter =  require('./app_server/routes/bukus');
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+
+require("./app_server/model/db")
 
 //CORS Enabled
 //Cross Origin Resource Sharing
@@ -23,15 +25,15 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect(
-  'mongodb://localhost:27017/dbbuku'
-  // 'mongodb+srv://mdp:Vf29122003@cluster0.eyoha.mongodb.net/dbbuku?retryWrites=true&w=majority&appName=Cluster0'
-).then(() => {
-  console.log('Connected to database');
-}).catch(() => {
-  // console.log('App starting error:', err.stack);
-  console.log("Connection failed");
-});
+// mongoose.connect(
+//   'mongodb://localhost:27017/dbbuku'
+//   // 'mongodb+srv://mdp:Vf29122003@cluster0.eyoha.mongodb.net/dbbuku?retryWrites=true&w=majority&appName=Cluster0'
+// ).then(() => {
+//   console.log('Connected to database');
+// }).catch(() => {
+//   // console.log('App starting error:', err.stack);
+//   console.log("Connection failed");
+// });
 
 
 // view engine setup
