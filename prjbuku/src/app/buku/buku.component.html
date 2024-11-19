@@ -10,12 +10,12 @@
                 <form class="m-4" (submit) = "simpanBuku(bukuForm)" #bukuForm = "ngForm">
                     <div class="mb-3">
                         <label for="Judul Buku" class="form-label">Judul Buku</label>
-                        <input type="text" class="form-control" id="Judul Buku" placeholder="Judul Buku" ngModel name = "judul">
+                        <input type="text" class="form-control" id="Judul Buku" placeholder="Judul Buku" ngModel name = "judul" required>
                       </div>
 
                     <div class="mb-3">
                         <label for="Penulis" class="form-label">Penulis</label>
-                        <input type="text" class="form-control" id="Penulis" placeholder="Penulis" ngModel name = "penulis">
+                        <input type="text" class="form-control" id="Penulis" placeholder="Penulis" ngModel name = "penulis" required>
                     </div>
                     
                     <div class="mb-3">
