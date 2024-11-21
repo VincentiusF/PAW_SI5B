@@ -10,12 +10,19 @@
                 <form class="m-4" (submit) = "simpanBuku(bukuForm)" #bukuForm = "ngForm">
                     <div class="mb-3">
                         <label for="Judul Buku" class="form-label">Judul Buku</label>
-                        <input type="text" class="form-control" id="Judul Buku" placeholder="Judul Buku" ngModel name = "judul" required>
+                        <input type="text" class="form-control" id="Judul Buku" placeholder="Judul Buku" ngModel name = "judul" [ngClass] = "judul.invalid && bukuForm.submitted ? 'is-invalid' : '' " required #judul = "ngModel">
+                        <div *ngIf="judul.invalid && bukuForm.submitted" class="invalid-feedback">
+                            Judul Buku harus diisi
+                        </div>
                       </div>
+
 
                     <div class="mb-3">
                         <label for="Penulis" class="form-label">Penulis</label>
-                        <input type="text" class="form-control" id="Penulis" placeholder="Penulis" ngModel name = "penulis" required>
+                        <input type="text" class="form-control" id="Penulis" placeholder="Penulis" ngModel name = "penulis" [ngClass] = "penulis.invalid && bukuForm.submitted ? 'is-invalid' : '' "  required #penulis = "ngModel">
+                        <div *ngIf="penulis.invalid && bukuForm.submitted" class="invalid-feedback">
+                            Penulis Buku harus diisi
+                        </div>
                     </div>
                     
                     <div class="mb-3">
