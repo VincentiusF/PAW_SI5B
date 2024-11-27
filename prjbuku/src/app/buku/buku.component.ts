@@ -27,7 +27,7 @@ export class BukuComponent implements OnInit, OnDestroy{
     this.bukuService.getBuku();
   }
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    
   }
 
   simpanBuku(form : NgForm){
