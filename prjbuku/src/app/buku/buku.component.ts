@@ -13,6 +13,10 @@ import { Subscription } from 'rxjs';
 export class BukuComponent implements OnInit, OnDestroy{
   bukuList: Buku[] = [];
   private getBukuSub : Subscription = new Subscription();
+  private messageSub : Subscription = new Subscription();
+  messageExecute : string = "";
+
+  mode : string = "simpan";
 
   //pagination
   p: number = 1;
@@ -24,10 +28,39 @@ export class BukuComponent implements OnInit, OnDestroy{
     .subscribe((value : Buku[])=>{
       this.bukuList = value;
     });
+
+    this.messageSub = this.bukuService.exexuteBukuListener()
+    .subscribe((value)=>{
+      this.messageExecute = value;
+    });
     this.bukuService.getBuku();
   }
   ngOnDestroy(): void {
     
+  }
+
+  tampilData(buku : Buku, form : NgForm) {
+    var gen1 : boolean = false;
+    var gen2 : boolean = false;
+    var gen3 : boolean = false;
+
+    buku.genre.forEach((val)=>{
+      if(val.toUpperCase().trim()==="BIOGRAFI") {
+        gen1 = true;
+      } else if(val.toUpperCase().trim()==="PENDIDIKAN") {
+        gen2 = true;
+      } else if(val.toUpperCase().trim()==="LAINNYA") {
+        gen3 = true;
+      }
+    });
+
+    form.setValue({
+      judul : buku.judul,
+      penulis : buku.penulis,
+      genre1 : gen1,
+      genre2 : gen2,
+      genre3 : gen3
+    })
   }
 
   simpanBuku(form : NgForm){
@@ -58,5 +91,12 @@ export class BukuComponent implements OnInit, OnDestroy{
 
     this.bukuService.addBuku(form.value.judul, form.value.penulis,genres);
 
+  }
+
+  hapusBuku(buku : Buku){
+    if(confirm("Hapus Data Buku : " + buku.judul)) {
+      this.bukuService.deleteBuku(buku);
+    }
+    this.bukuService.deleteBuku(buku);
   }
 }

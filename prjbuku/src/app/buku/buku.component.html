@@ -1,77 +1,82 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4">Master Data</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">Data Buku</li>
-        </ol>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <form class="m-4" (submit)="simpanBuku(bukuForm)" #bukuForm="ngForm">
-                        <div class="mb-3">
-                            <label for="judul" class="form-label">Judul</label>
-                            <input type="text" 
-                            [ngClass]="judul.invalid && bukuForm.submitted ? 'is-invalid':''" 
-                            class="form-control" id="judul" ngModel name="judul" #judul = "ngModel" required>
-                            <div *ngIf = "judul.invalid && bukuForm.submitted" class="invalid-feedback">
-                                Judul Harus Diisi
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label for="penulis" class="form-label">Penulis</label>
-                            <input type="text" 
-                            [ngClass]="penulis.invalid && bukuForm.submitted ? 'is-invalid':''" 
-                            class="form-control" id="penulis" ngModel name="penulis" #penulis = "ngModel" required>
-                            <div *ngIf = "penulis.invalid && bukuForm.submitted" class="invalid-feedback">
-                                Penulis Harus Diisi
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label for="penulis" class="form-label me-4">Genre</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="biografi" ngModel name="genre1">
-                                <label class="form-check-label" for="inlineCheckbox1">Biografi</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="pendidikan" ngModel name="genre2">
-                                <label class="form-check-label" for="inlineCheckbox2">Pendidikan</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="lainnya" ngModel name="genre3">
-                                <label class="form-check-label" for="inlineCheckbox2">Lainnya</label>
-                            </div>
-                          </div>   
-                          <button type="submit" class="btn btn-primary">Simpan Buku</button>                        
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        DataTable Example
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Data Buku</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <form class="m-4" (submit)="simpanBuku(bukuForm)" #bukuForm="ngForm">
+                    <div class="mb-3">
+                        <label for="judul" class="form-label">Judul</label>
+                        <input type="text" 
+                            [ngClass]="judul.invalid && bukuForm.submitted ? 'is-invalid' : ''" 
+                            class="form-control" id="judul" ngModel name="judul" #judul="ngModel" required>
+                        <div *ngIf="judul.invalid && bukuForm.submitted" class="invalid-feedback">
+                            Judul Harus Diisi
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Judul</th>
-                                    <th>Penulis</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody *ngIf="bukuList.length>0">
-                                <tr *ngFor="let buku of bukuList | paginate: { itemsPerPage: 5, currentPage: p }">
-                                    <td>{{ buku.judul }}</td>
-                                    <td>{{ buku.penulis }}</td>
-                                    <td><button class="btn btn-outline-primary btn-sm">EDIT</button></td>
-                                    <td><button class="btn btn-outline-danger btn-sm">DELETE</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    <div class="mb-3">
+                        <label for="penulis" class="form-label">Penulis</label>
+                        <input type="text" 
+                            [ngClass]="penulis.invalid && bukuForm.submitted ? 'is-invalid' : ''" 
+                            class="form-control" id="penulis" ngModel name="penulis" #penulis="ngModel" required>
+                        <div *ngIf="penulis.invalid && bukuForm.submitted" class="invalid-feedback">
+                            Penulis Harus Diisi
+                        </div>
                     </div>
+                    <div class="mb-3">
+                        <label for="genre" class="form-label me-4">Genre</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="biografi" ngModel name="genre1">
+                            <label class="form-check-label" for="inlineCheckbox1">Biografi</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="pendidikan" ngModel name="genre2">
+                            <label class="form-check-label" for="inlineCheckbox2">Pendidikan</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="lainnya" ngModel name="genre3">
+                            <label class="form-check-label" for="inlineCheckbox3">Lainnya</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan Buku</button>
+                </form>
+
+                <div *ngIf="messageExecute !== ''" class="bg-success m-4 p-2 text-dark bg-opacity-25">
+                    {{ messageExecute }}
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    DataTable Example
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Judul</th>
+                                <th>Penulis</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="bukuList.length > 0">
+                            <tr *ngFor="let buku of bukuList | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <td>{{ buku.judul }}</td>
+                                <td>{{ buku.penulis }}</td>
+                                <td><button class="btn btn-outline-primary btn-sm">EDIT</button></td>
+                                <td><button (click)="hapusBuku(buku)" class="btn btn-outline-danger btn-sm">DELETE</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
