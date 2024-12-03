@@ -16,7 +16,7 @@ export class BukuComponent implements OnInit, OnDestroy{
   private messageSub : Subscription = new Subscription();
   messageExecute : string = "";
 
-  mode : string = "simpan";
+  mode : string = "Simpan";
 
   //pagination
   p: number = 1;
@@ -36,7 +36,8 @@ export class BukuComponent implements OnInit, OnDestroy{
     this.bukuService.getBuku();
   }
   ngOnDestroy(): void {
-    
+    this.getBukuSub.unsubscribe();
+    this.messageSub.unsubscribe();
   }
 
   tampilData(buku : Buku, form : NgForm) {
@@ -55,12 +56,20 @@ export class BukuComponent implements OnInit, OnDestroy{
     });
 
     form.setValue({
+      id : buku._id,
       judul : buku.judul,
       penulis : buku.penulis,
       genre1 : gen1,
       genre2 : gen2,
       genre3 : gen3
     })
+
+    this.mode = "Perbaiki"
+  }
+
+  onReset() {
+    this.mode = "Simpan"
+    this.messageExecute = ""
   }
 
   simpanBuku(form : NgForm){
@@ -84,12 +93,19 @@ export class BukuComponent implements OnInit, OnDestroy{
     if(form.value.genre3==true){
       genres.push("Lainnya")
     }
-    console.log("Pengujian Klik")
-    console.log(form.value.judul);
-    console.log(form.value.penulis);
-    console.log(genres);
+    // console.log("Pengujian Klik")
+    // console.log(form.value.judul);
+    // console.log(form.value.penulis);
+    // console.log(genres);
 
-    this.bukuService.addBuku(form.value.judul, form.value.penulis,genres);
+    if(this.mode.toUpperCase() === "SIMPAN"){
+      this.bukuService.addBuku(form.value.judul, form.value.penulis,genres);
+    } else {
+      this.bukuService.updateBuku(form.value.judul, form.value.penulis,genres, form.value.id);
+    }
+    
+    form.resetForm();
+    this.mode = "Simpan";
 
   }
 
