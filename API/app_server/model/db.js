@@ -7,7 +7,7 @@ mongoose.connect(
   ).then(() => {
     console.log('Connected to database');
   }).catch(() => {
-    // console.log('App starting error:', err.stack);
+    console.log('App starting error:', err.stack);
     console.log("Connection failed");
   });
   
