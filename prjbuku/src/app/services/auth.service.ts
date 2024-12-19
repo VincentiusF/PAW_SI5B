@@ -50,7 +50,9 @@ export class AuthService {
             );
             console.log(expirationDate);
             this.saveAuthData(token, expirationDate);
-            this.router.navigate(['/admin/buku']);
+            this.router.navigate(['/admin/buku']).then(() => {
+              window.location.reload();
+            });
           }
         },
         (error) => {
@@ -100,6 +102,7 @@ export class AuthService {
       this.isAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
+      this.router.navigate(['/admin/buku']);
     }
   }
   logout() {
